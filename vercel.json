@@ -1,0 +1,10 @@
+{
+    "version": 2,
+    "routes": [
+      {
+        "src": "/api/generate_qr",
+        "dest": "api/generate_qr.py"
+      }
+    ]
+  }
+  
