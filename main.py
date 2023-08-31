@@ -2,25 +2,30 @@ from fastapi import FastAPI, HTTPException
 import qrcode
 import pyqrcode
 import os
+import pyqrcodeng as pyqrcode
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
-# Configure CORS
+QR_CODE_DIR = "https://universel-qr.onrender.com/"
 
+origins = [
+    "http://localhost:3000",
+]
 
-# Define a directory to save the generated QR code images
-QR_CODE_DIR = "qr_codes"
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/")
 async def read_root():
     return {"message": "Welcome to the QR Code Generator"}
 
-@app.get("/qr_code/{data}")
-async def generate_qr_code(data: str):
-    qr = pyqrcode.create(data)
-    return {"qr_code": qr.png_as_base64_str(scale=5)}
-
-@app.get("/generateqr")
+@app.get("/png/{data}")
 async def generate_qr_code(data: str):
     if not data:
         raise HTTPException(status_code=400, detail="Data parameter is required")
@@ -37,10 +42,6 @@ async def generate_qr_code(data: str):
     img = qr.make_image(fill_color="black", back_color="white")
 
     # Save the image as a PNG file
-    file_path = os.path.join(QR_CODE_DIR, f"{data}.png")
-    img.save(file_path)
-
+    file_path = f"{QR_CODE_DIR}{data}.png"
+    img.save(f"{data}.png")
     return {"image_path": file_path}
-
-
-
