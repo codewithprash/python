@@ -9,7 +9,7 @@ app = FastAPI()
 
 
 origins = [
-    "*",
+    "https://upiqrcode.pages.dev/",
 ]
 
 app.add_middleware(
@@ -49,10 +49,10 @@ async def generate_qr_code(data: str):
 
     return FileResponse(file_path)
 
-@app.get("/qr_png/{data}")
-async def generate_qr_code(data: str):
-    if not data:
-        raise HTTPException(status_code=400, detail="Data parameter is required")
+@app.get("/qr_png/{code}")
+async def generate_qr_code(code: str):
+    if not code:
+        raise HTTPException(status_code=400, detail="Code parameter is required")
 
     qr = qrcode.QRCode(
         version=1,
@@ -60,6 +60,7 @@ async def generate_qr_code(data: str):
         box_size=10,
         border=4,
     )
+    data = f"upi://pay?cu=INR&pa={code}"
     qr.add_data(data)
     qr.make(fit=True)
 
