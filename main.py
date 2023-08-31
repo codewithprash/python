@@ -1,14 +1,17 @@
 from fastapi import FastAPI, HTTPException
 import qrcode
-from io import BytesIO
+import os
 
 app = FastAPI()
 
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
+# Define a directory to save the generated QR code images
+QR_CODE_DIR = "qr_codes"
 
-@app.get("/generate_qr/")
+@app.get("/")
+async def read_root():
+    return {"message": "Welcome to the QR Code Generator"}
+
+@app.get("/generate_qr")
 async def generate_qr_code(data: str):
     if not data:
         raise HTTPException(status_code=400, detail="Data parameter is required")
@@ -24,8 +27,8 @@ async def generate_qr_code(data: str):
 
     img = qr.make_image(fill_color="black", back_color="white")
 
-    img_io = BytesIO()
-    img.save(img_io, format="PNG")
-    img_io.seek(0)
+    # Save the image as a PNG file
+    file_path = os.path.join(QR_CODE_DIR, f"{data}.png")
+    img.save(file_path)
 
-    return StreamingResponse(content=img_io, media_type="image/png")
+    return {"image_path": file_path}
