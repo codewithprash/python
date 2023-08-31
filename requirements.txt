@@ -1,5 +1,4 @@
 fastapi==0.103.0
 pypng==0.20220715.0
-PyQRCode==1.2.1
 qrcode==7.4.2
 uvicorn==0.22.0

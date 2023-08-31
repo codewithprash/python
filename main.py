@@ -1,8 +1,5 @@
 from fastapi import FastAPI, HTTPException
 import qrcode
-import pyqrcode
-import os
-import pyqrcodeng as pyqrcode
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
