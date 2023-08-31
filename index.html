@@ -30,7 +30,7 @@
             if (inputText) {
                 
                 const encodedText = encodeURIComponent(inputText);
-                const apiUrl = `http://localhost:8000/qr_png/${encodedText}`; // Update the URL accordingly
+                const apiUrl = `https://universel-qr.onrender.com/qr_png/${encodedText}`; // Update the URL accordingly
 
                 fetch(apiUrl)
                     .then(response => response.json())
