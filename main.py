@@ -22,7 +22,7 @@ QR_CODE_DIR = "qr_codes"
 async def read_root():
     return {"message": "Welcome to the QR Code Generator"}
 
-@app.get("/generate_qr")
+@app.get("/generateqr")
 async def generate_qr_code(data: str):
     if not data:
         raise HTTPException(status_code=400, detail="Data parameter is required")
