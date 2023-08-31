@@ -7,7 +7,6 @@ from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
-QR_CODE_DIR = ""
 
 origins = [
     "*",
@@ -50,7 +49,7 @@ async def generate_qr_code(data: str):
 
     return FileResponse(file_path)
 
-@app.get("/code/{data}")
+@app.get("/qr_png/{data}")
 async def generate_qr_code(data: str):
     if not data:
         raise HTTPException(status_code=400, detail="Data parameter is required")
