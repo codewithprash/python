@@ -9,8 +9,8 @@ app = FastAPI()
 
 
 origins = [
-    "https://upiqrcode.pages.dev/",
-    "*"
+    "https://upiqrcode.pages.dev",
+    "https://upiqrcode.pages.dev/"
 ]
 
 app.add_middleware(
@@ -27,7 +27,7 @@ async def read_root():
 
 
 @app.get("/qr/{data}")
-async def generate_qr_code(data: str):
+async def generate_qr(data: str):
     if not data:
         raise HTTPException(status_code=400, detail="Data parameter is required")
 
@@ -52,7 +52,7 @@ async def generate_qr_code(data: str):
     return FileResponse(file_path)
 
 @app.get("/qr_png/{code}")
-async def generate_qr_code(code: str):
+async def generate_qr_png(code: str):
     if not code:
         raise HTTPException(status_code=400, detail="Code parameter is required")
 

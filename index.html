@@ -28,14 +28,11 @@
             const downloadLink = document.getElementById("downloadLink");
         
             if (inputText) {
-                const headers = new Headers();
-headers.append("Authorization", "Bearer YOUR_ACCESS_TOKEN");  // Include if needed
-headers.append("Custom-Header", "Value"); 
+                
                 const encodedText = encodeURIComponent(inputText);
                 const apiUrl = `https://universel-qr.onrender.com/qr_png/${encodedText}`; // Update the URL accordingly
 
-                fetch(apiUrl, { method: "GET",
-    headers: headers,})
+                fetch(apiUrl, { method: "GET",})
                      
                     .then(response => response.json())
                     .then(data => {
