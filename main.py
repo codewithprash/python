@@ -10,6 +10,7 @@ app = FastAPI()
 
 origins = [
     "https://upiqrcode.pages.dev",
+    "*"
 ]
 
 app.add_middleware(
