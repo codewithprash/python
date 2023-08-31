@@ -9,7 +9,7 @@ app = FastAPI()
 
 
 origins = [
-    "https://upiqrcode.pages.dev",
+    "https://upiqrcode.pages.dev/",
     "*"
 ]
 
