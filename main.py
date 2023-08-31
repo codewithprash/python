@@ -36,7 +36,8 @@ async def generate_qr_code(data: str):
         box_size=10,
         border=4,
     )
-    qr.add_data(data)
+    code = f"upi://pay?cu=INR&pa={data}"
+    qr.add_data(code)
     qr.make(fit=True)
 
     img = qr.make_image(fill_color="black", back_color="white")
