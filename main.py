@@ -7,7 +7,7 @@ app = FastAPI()
 QR_CODE_DIR = "https://universel-qr.onrender.com/"
 
 origins = [
-    "http://localhost:3000",
+    "*",
 ]
 
 app.add_middleware(
