@@ -4,6 +4,16 @@ import os
 
 app = FastAPI()
 
+# Configure CORS
+origins = ["*"]  # Replace this with the list of allowed origins
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 # Define a directory to save the generated QR code images
 QR_CODE_DIR = "qr_codes"
 
