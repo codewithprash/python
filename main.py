@@ -1,19 +1,12 @@
 from fastapi import FastAPI, HTTPException
-from fastapi.middleware.cors import CORSMiddleware
 import qrcode
+import pyqrcode
 import os
 
 app = FastAPI()
 
 # Configure CORS
-origins = ["*"]  # Replace this with the list of allowed origins
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+
 
 # Define a directory to save the generated QR code images
 QR_CODE_DIR = "qr_codes"
@@ -21,6 +14,11 @@ QR_CODE_DIR = "qr_codes"
 @app.get("/")
 async def read_root():
     return {"message": "Welcome to the QR Code Generator"}
+
+@app.get("/qr_code/{data}")
+async def generate_qr_code(data: str):
+    qr = pyqrcode.create(data)
+    return {"qr_code": qr.png_as_base64_str(scale=5)}
 
 @app.get("/generateqr")
 async def generate_qr_code(data: str):
@@ -43,3 +41,6 @@ async def generate_qr_code(data: str):
     img.save(file_path)
 
     return {"image_path": file_path}
+
+
+
