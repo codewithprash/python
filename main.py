@@ -71,7 +71,7 @@ async def generate_qr_png(code: str):
 
     # Convert the image to base64
     img_io = io.BytesIO()
-    img.save(img_io, format="PNG")
+    img.save(img_io)
     img_io.seek(0)
     img_base64 = base64.b64encode(img_io.read()).decode()
 
